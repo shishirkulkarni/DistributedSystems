@@ -26,24 +26,33 @@ public class Main {
 		
 		driver.init(p0, p1, p2, p3, p4, p5, p6, p7, p8);
 				
-		driver.trigger(p0); //Traverse the tree using DFS to find out leaf nodes and send messages
-		System.out.println(p0);	
+		System.out.println("Value: " + driver.converge(p0));
+		System.out.println("Sequence: " + p0.getSequence());
 	}
 	
-	public void trigger(Processor root) {
+	public int converge(Processor p) {
 
-		if(root.getChildern().size() == 0) {
-			root.sendMessageToMyBuffer(root);
-			return;
+		if(p.isLeaf()) {
+			p.setSequence("" + p.getVal());
+			return p.getVal();
 		}
 		
-		Iterator<Processor> it = root.getChildern().iterator();
-		while(it.hasNext()) {
-			trigger(it.next());
+		int max = p.getVal();
+
+		Iterator<Processor> it = p.getChildern().iterator();
+		while(it.hasNext()) { //Get Max value from all the children
+			Processor child = it.next();
+			int childMax = converge(child);
+			if(max < childMax) {
+				max = childMax;
+			}
+			p.tempSequence += child.getSequence() + ", ";
 		}
 		
+		p.setSequence(p.tempSequence + p.getVal());
+		return max;
 	}
-	
+
 	public void init(Processor... p) {
 		t.insert(p[0], null);
 		t.insert(p[1], p[0]);
