@@ -12,7 +12,7 @@ public class Main {
         init();
     }
 
-    public static void main ( String[] args){
+    public static void main (String[] args){
         Main m = new Main();        
         //TODO: Choose a processor as a Root
         //TODO: Send an initial message Message.M to this processor.
