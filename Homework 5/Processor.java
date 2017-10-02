@@ -81,9 +81,8 @@ public class Processor implements Observer {
     	
     	//If a message
     	if(observable == messageBuffer) {
-    		System.out.println("[RECIEVE] [VC = " + messageBuffer.getMessage().getVc() + "]");
     		vc.updateVectorClock(messageBuffer.getMessage().getVc());
-    		System.out.println("[RECIEVE] [VC = " + vc + "]");
+    		System.out.println("[Processor = P"+ id +"] [RECIEVE] [VC = " + vc + "]");
     	}
     }
     
