@@ -1,7 +1,5 @@
 package edu.sjsu.cs249.two;
 
-import java.util.Iterator;
-
 public class Tree {
 	private Processor root;
 	
