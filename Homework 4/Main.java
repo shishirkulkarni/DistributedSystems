@@ -26,31 +26,8 @@ public class Main {
 		
 		driver.init(p0, p1, p2, p3, p4, p5, p6, p7, p8);
 				
-		System.out.println("Value: " + driver.converge(p0));
-		System.out.println("Sequence: " + p0.getSequence());
-	}
-	
-	public int converge(Processor p) {
-
-		if(p.isLeaf()) {
-			p.setSequence("" + p.getVal());
-			return p.getVal();
-		}
-		
-		int max = p.getVal();
-
-		Iterator<Processor> it = p.getChildern().iterator();
-		while(it.hasNext()) { //Get Max value from all the children
-			Processor child = it.next();
-			int childMax = converge(child);
-			if(max < childMax) {
-				max = childMax;
-			}
-			p.tempSequence += child.getSequence() + ", ";
-		}
-		
-		p.setSequence(p.tempSequence + p.getVal());
-		return max;
+		System.out.println("Value: " + driver.getTree().converge(p0));
+		System.out.println("Sequence: " + driver.getTree().getRoot().getSequence());
 	}
 
 	public void init(Processor... p) {
@@ -65,4 +42,8 @@ public class Main {
 		t.insert(p[8], p[5]);
 	}
 	
+	public Tree getTree() {
+		return t;
+	}
+
 }

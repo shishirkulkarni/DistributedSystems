@@ -1,5 +1,7 @@
 package edu.sjsu.cs249.two;
 
+import java.util.Iterator;
+
 public class Tree {
 	private Processor root;
 	
@@ -19,6 +21,30 @@ public class Tree {
 
 	}
 	
+	public int converge(Processor p) {
+
+		if(p.isLeaf()) {
+			p.setSequence("" + p.getVal());
+			return p.getVal();
+		}
+
+		int max = p.getVal();
+
+		Iterator<Processor> it = p.getChildern().iterator();
+		while(it.hasNext()) { //Get Max value from all the children
+			Processor child = it.next();
+			int childMax = converge(child);
+			if(max < childMax) {
+				max = childMax;
+			}
+			p.tempSequence += child.getSequence() + ", ";
+		}
+
+		p.setSequence(p.tempSequence + p.getVal());
+		return max;
+	}
+
+
 	public Processor getRoot() {
 		return root;
 	}
