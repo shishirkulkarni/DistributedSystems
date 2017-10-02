@@ -1,4 +1,4 @@
-DFS Spanning tree using modified flooding algorithm (v1.0)
+DFS Spanning tree using modified flooding algorithm (v1.1)
 ==========================================================
 This is an implementation simulating the construction of a spanning tree using the depth first traversal. 
 

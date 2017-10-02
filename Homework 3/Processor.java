@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by tphadke on 8/29/17.
  */
-public class Processor extends Observable implements Observer {
+public class Processor implements Observer {
     //Each processsor has a message Buffer to store messages
     Buffer messageBuffer ;
     Integer id ;
@@ -24,7 +24,7 @@ public class Processor extends Observable implements Observer {
         //Initially it will be all the neighbors of a Processor. When a graph is created this list is populated
         unexplored = new ArrayList<>();
         //Each processor is observing itself;
-        this.addObserver(this);
+        messageBuffer.addObserver(this);
     }
     
     public Processor(int id) {
@@ -41,9 +41,7 @@ public class Processor extends Observable implements Observer {
     //This method will add a message to this processors buffer.
     //Other processors will invoke this method to send a message to this Processor
     public void sendMessgeToMyBuffer(Message message, Processor sender){
-        messageBuffer.setMessage(message);
-        setChanged();
-        notifyObservers(sender);
+        messageBuffer.setMessage(message, sender);
     }
 
 
@@ -58,23 +56,24 @@ public class Processor extends Observable implements Observer {
     //This is analogous to recieve method.Whenever a message is dropped in its buffer this Pocesssor will respond
     //TODO: implement the logic of receive method here
     //      Hint: Add switch case for each of the conditions given in receive
-    public void update(Observable observable, Object sender) {
+    public void update(Observable observable, Object arg) {
+    	Processor sender = messageBuffer.getSender();
     	switch(messageBuffer.getMessage()) {
     		case M:
     			if (parent == null) {
-    				parent = (Processor) sender;
-    				removeFromUnexplored((Processor) parent);
+    				parent = sender;
+    				removeFromUnexplored(parent);
     				explore();
     				parent.sendMessgeToMyBuffer(Message.PARENT, this);
     			} else {
-    				removeFromUnexplored((Processor) sender);
-    				((Processor) sender).sendMessgeToMyBuffer(Message.ALREADY, this);
+    				removeFromUnexplored(sender);
+    				sender.sendMessgeToMyBuffer(Message.ALREADY, this);
     			}
     			break;
     		case PARENT:
-    			removeFromUnexplored((Processor) sender);
-    			if((Processor)sender != this) {
-    				getChildren().add((Processor) sender);
+    			removeFromUnexplored(sender);
+    			if(sender != this) {
+    				getChildren().add(sender);
     			}
     			explore();
     			break;
@@ -90,7 +89,8 @@ public class Processor extends Observable implements Observer {
 
 	private void explore(){
         //TODO: implement this method.
-		for(Iterator<Processor> it = getUnexplored().iterator(); it.hasNext();) {
+		Iterator<Processor> it = getUnexplored().iterator();
+		if(it.hasNext()) {
 			Processor Pi = it.next();
 			removeFromUnexplored(Pi);
 			Pi.sendMessgeToMyBuffer(Message.M, this);
