@@ -1,36 +1,76 @@
-UML for Vector-clock computations:
+Vector Clock Simulation:
 ===================================
-This is aUML diagram of vector clocks of processors.
+This is an implementation simulating the calculation of Vector Clocks
 
 Input:
 ------
-The events in the executionPlan() methods.
+3 types of events - SEND,RECEIVE and COMPUTATION for the 3 processors P0,P1,P2. 
+Initially the vector clocks of all the processors will be initialized to 0.
 
 Output:
 -------
-The final computed vector clocks of the processors.
+The final vector clocks of the 3 processors.
 
-Procedure:
+Implementation:
 ---------------
-* There are 3 processors present P0,P1 and P2 each maintaining a vector clock 
-and a message buffer. 
-* Each processor can have 3 types of events executing, SEND, RECEIVE and 
-COMPUTE. Depending on the type of event, the vector clock will be updated.
-* On a compute event, the vector clock of the processor will be incremented by 
-1.
-* On a send event, the processor will increment its vector clock and send it to 
-the receiver.
-* On a receive event, the processor will increment its own vector clock and 
-take the maximum value of vector clocks of other processors. 
-* Algorithm class initializes the Processors P0,P1 and P2 and calls the 
-executionPlan() method for each processor.
-* The executionPlan() method will call the send, receive and compute events as 
-input given by the user.
-* Each Processor maintains a vector clock. Depending on the type of 
-message(event), the vector clock will be updated. The different events occur 
-concurrently in all the processors.
-* Once all the events are completed, the final vector clocks in each processor 
-is the final output.
+* The calculation for vector clocks of the processors is implemented using Java
+classes
+* There are 3 processors present - P0,P1,P2
+* Each processor has an id (For processor P0-0, P1-1 and P2-2), and a time 
+interval after which it starts execution.
+* Each processor also has a vector clock which is initially set to 0
+* There is an execution plan defined for each processors according to which the
+3 types of events - SEND,RECEIVE and COMPUTE will execute in the processor.
+* Since all the processors need to execute concurrently,threads are implemented
+and each processor starts execution after waiting for an interval of time. Thus
+all the events can stay synchronized.
+* The vector clocks of each processor will be updated accordingly.
+* The final vector clock of the processors after all he events have finished 
+execution is the output.
+
+
+Classes:
+--------
+* Processor.java
+* Buffer.java
+* Main.java
+* Message.java
+* MessageType.java
+* Clock.java
+* VectorClock.java
+* Algorithm.java
+
+
+Question and Answers:
+----------------------
+
+* Interactions
+-> Interaction between the processors by 3 events namely COMPUTATION, SEND and 
+RECEIVE.
+
+* What we need to store?
+-> Vector clock of every processor after any event. 
+
+* What needs to change?
+-> The vector clocks of each processor will change upon receiving the COMPUTE, 
+SEND or RECEIVE messages.
+
+* What will be the input?
+-> The processors and their execution plans will be the input of the algorithm.
+The execution plan of each processor will have the events that will take place
+individually for each process as per the message type. 
+
+* What will be the output?
+-> The updated vector clocks of each processor after all the events have 
+taken place will be the final output of the program. 
+
+* Decide which event happened Before, which event is concurrent
+-> The timeline of each event explaining its occurence with respect to other 
+events could be found out by comparing their vector clocks. The vector clocks
+of each processor at a particular instance(event) would help help us compare as
+to which event took place before the other, or whether the events were 
+concurrent.
+
 
 Authors:
 --------
@@ -38,5 +78,3 @@ Authors:
 * Shishir Kulkarni
 * Sphoorti Poojary
 * Shubham Pachpute
-
-
