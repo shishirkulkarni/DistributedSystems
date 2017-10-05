@@ -8,12 +8,12 @@ public class Algorithm {
 		super();
 		this.noOfProcessors = 3;
 		// TODO : initialize all the processors
-		p0 = new Processor(0, 3, 0, 2);
+		p0 = new Processor(0, 3, 0, 1);
 		p1 = new Processor(1, 3, 0, 1);
-		p2 = new Processor(2, 3, 0, 3);
-		p0.setExecutionPlan(p0, p1, p0, p2, p0, p0);
-		p1.setExecutionPlan(p1, p0, p1, p1, p2, p0, p1);
-		p2.setExecutionPlan(p2, p0, p2, p1, p2);
+		p2 = new Processor(2, 3, 0, 1);
+		p0.setExecutionPlan(null, p1, null, null, p2, p0, null, null, null, p0);
+		p1.setExecutionPlan(null, null, null, null, null, p2, p0);
+		p2.setExecutionPlan(p2, p2, null, p1, null, p1, p2);
 	}
 	
 	public void execute() {
