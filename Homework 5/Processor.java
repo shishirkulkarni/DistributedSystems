@@ -66,11 +66,15 @@ public class Processor implements Observer {
     	if(observable == this.logicalClock) {
     		try {
     			Processor k = executionPlan[pc++];
-    			if(k == this) {
-					this.vc.updateAt(id, (Integer)arg);
+    			if(k == null) {
+    				this.logicalClock.setJiffy(((Integer)arg) - 1);
+    				return;
+    			}
+    			else if(k == this) {
+					this.vc.updateAt(id, this.vc.valueAt(id) + 1);
 					System.out.println("[Processor = P" + this + "] [COMPUTATION] [VC = " + this.vc + "]");
     			} else {
-    				this.vc.updateAt(id, (Integer)arg);
+    				this.vc.updateAt(id, this.vc.valueAt(id) + 1);
     				System.out.println("[Processor = P" + this + "] [SEND] [VC =  " + this.vc + "]");
     				k.sendMessgeToMyBuffer(new Message(MessageType.SEND, vc));
     			}
@@ -81,8 +85,15 @@ public class Processor implements Observer {
     	
     	//If a message
     	if(observable == messageBuffer) {
-    		vc.updateVectorClock(messageBuffer.getMessage().getVc());
-    		System.out.println("[Processor = P"+ id +"] [RECIEVE] [VC = " + vc + "]");
+//    			try {
+//					Thread.sleep(1000); // Recieve delay 
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				this.vc.updateAt(id, this.vc.valueAt(id) + 1);
+				this.vc.updateVectorClock(messageBuffer.getMessage().getVc());
+	    		System.out.println("[Processor = P"+ id +"] [RECIEVE] [VC = " + this.vc + "]");
     	}
     }
     
