@@ -85,12 +85,6 @@ public class Processor implements Observer {
     	
     	//If a message
     	if(observable == messageBuffer) {
-//    			try {
-//					Thread.sleep(1000); // Recieve delay 
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				this.vc.updateAt(id, this.vc.valueAt(id) + 1);
 				this.vc.updateVectorClock(messageBuffer.getMessage().getVc());
 	    		System.out.println("[Processor = P"+ id +"] [RECIEVE] [VC = " + this.vc + "]");
