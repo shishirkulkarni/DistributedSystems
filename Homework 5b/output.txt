@@ -1,0 +1,18 @@
+[Processor = P1] [COMPUTATION] [VC = <0, 1>]
+[Processor = P1] [COMPUTATION] [VC = <0, 2>]
+[Processor = P0] [SEND] [VC =  <1, 0>]
+[Processor = P1] [COMPUTATION] [VC = <0, 3>]
+[Processor = P1] [RECIEVE] [VC = <1, 4>]
+[Processor = P0] [COMPUTATION] [VC = <2, 0>]
+[Processor = P1] [COMPUTATION] [VC = <1, 5>]
+[Processor = P0] [COMPUTATION] [VC = <3, 0>]
+[Processor = P0] [SEND] [VC =  <4, 0>]
+[Processor = P1] [RECIEVE] [VC = <4, 6>]
+
++-----------------------+
+| P0: <4, 0> P1: <4, 6> |
++-----------------------+
+Maximal consistent cut: 
+P0: <2, 0>
+P1: <1, 5>
+
