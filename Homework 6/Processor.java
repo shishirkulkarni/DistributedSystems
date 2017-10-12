@@ -84,40 +84,6 @@ public class Processor extends Thread implements Observer {
     	System.out.println("Processor " + this + " recording its state: Recording my registers...\tRecording my program counters...\tRecording my local variables...");
     }
 
-    
-    /**
-     * You should send a message to this recording so that recording is stopped
-     * //TODO: Homework: Move this method recordChannel(..) out of this class. Start this method in a
-     *                  separate thread. This thread will start when the marker arrives and it will stop
-     *                  when a duplicate marker is received. This means that each processor will have the
-     *                  capability to start and stop this channel recorder thread. The processor manages the
-     *                  record Channel thread. Processor will have the ability to stop the thread.
-     *                  Feel free to use any java concurrency  and thread classes to implement this method
-     *
-     *
-     * @param channel The input channel which has to be monitered
-     */
-
-    public void recordChannel(Buffer channel) {
-        //Here print the value stored in the inChannels to stdout or file
-        //TODO:Homework: Channel will have messages from before a marker has arrived. Record messages only after a
-        //               marker has arrived.
-        //               [hint: Use the getTotalMessageCount () method to get the messages received so far.
-        int lastIdx = channel.getTotalMessageCount();
-        List<Message> recordedMessagesSinceMarker = new ArrayList<>();
-            //TODO: Homework: Record messages
-            // [Hint: Get the array that is storing the messages from the channel. Remember that the Buffer class
-            // has a member     private List<Message> messages;  which stores all the messages received.
-            // When a marker has arrived sample this List of messages and copy only those messages that
-            // are received since the marker arrived. Copy these messages into recordedMessagesSinceMarker
-            // and put it in the channelState map.
-            //
-            // ]
-
-//        channelState.put(channel, recordedMessagesSinceMarker);
-
-    }
-
     /**
      * Overloaded method, called with single argument
      * This method will add a message to this processors buffer.
@@ -134,7 +100,7 @@ public class Processor extends Thread implements Observer {
      * @param fromChannel channel where marker has arrived
      * @return true if this is the first marker false otherwise
      */
-    public boolean isFirstMarker(Channel fromChannel) {
+    public boolean isFirstMarker() {
         //TODO: Implemetent this method
         return seenMarker;
     }
@@ -146,7 +112,8 @@ public class Processor extends Thread implements Observer {
     public void update(Observable observable, Object arg) {
         Channel c = (Channel)observable;
         Message message = (Message) arg;
-        if (message.getMessageType().equals(MessageType.MARKER) && !seenMarker) { //First Marker
+        Processor self = this;
+        if (message.getMessageType().equals(MessageType.MARKER) && !isFirstMarker()) { //First Marker
         	System.out.println("Processor " + this + " got a " + message.getMessageType() + " from " + message.getFrom() + " on " + c);
         	recordMyCurrentState();
         	
@@ -171,7 +138,7 @@ public class Processor extends Thread implements Observer {
 						Iterator<Channel> it = outChannels.values().iterator();
 						while(it.hasNext()) {
 							Channel tmp = it.next();
-								tmp.sendMessage(message);
+								tmp.sendMessage(new Message(MessageType.MARKER, self));
 						}
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block

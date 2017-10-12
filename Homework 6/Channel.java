@@ -13,7 +13,7 @@ public class Channel extends Observable {
 	public void sendMessage(Message message) {
 		this.buffer.saveMessage(message);
 		this.setChanged();
-		this.notifyObservers(message); // Multiple threads observing so need to send message
+		this.notifyObservers(message);
 		getMessage();
 	}
 	

@@ -26,6 +26,7 @@ public class Main {
 		}
     	
     	//Currently putting a longer delay to print the state of channels after the algorithm
+    	// since the marker delay threads aren't joined to main thread
     	Thread.sleep(20000);
     	cl.processor1.printSnapshotState();
     	cl.processor2.printSnapshotState();

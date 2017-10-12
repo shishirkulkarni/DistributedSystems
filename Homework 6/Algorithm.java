@@ -22,12 +22,12 @@ public class Algorithm {
     	processor2 = new Processor(2);
     	processor3 = new Processor(3);
     	
-    	Channel p12 = new Channel("p12"),
-    			p13 = new Channel("p13"),
-    			p21 = new Channel("p21"),
-    			p23 = new Channel("p23"),
-    			p31 = new Channel("p31"),
-    			p32 = new Channel("p32");
+    	Channel p12 = new Channel("c12"),
+    			p13 = new Channel("c13"),
+    			p21 = new Channel("c21"),
+    			p23 = new Channel("c23"),
+    			p31 = new Channel("c31"),
+    			p32 = new Channel("c32");
     	
     	//Init P1 completely
     	List<Channel> p1InChannels = new ArrayList<>();

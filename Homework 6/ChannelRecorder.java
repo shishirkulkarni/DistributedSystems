@@ -30,6 +30,7 @@ public class ChannelRecorder implements Observer{
 		Channel c = (Channel) arg0;
 		Message message = (Message)arg1;
 		if(message.getMessageType() == MessageType.MARKER) { //Duplicate Marker
+			System.out.println("Processor " + p + " received a duplicate marker from " + message.getFrom() + " on " + c);
 			p.setSeenMarker();
 			stopRecordingChannel(c); //Finalize the state of that Channel
 		} else {
