@@ -1,0 +1,37 @@
+Processor 1 recording its state: Recording my registers...	Recording my program counters...	Recording my local variables...
+Processor 3 got a MARKER from 1 on c13
+Processor 3 recording its state: Recording my registers...	Recording my program counters...	Recording my local variables...
+Processor 2 got a MARKER from 1 on c12
+Processor 2 recording its state: Recording my registers...	Recording my program counters...	Recording my local variables...
+Doing some computation on Processor 1
+Doing some computation on Processor 2
+Doing some computation on Processor 3
+Doing some computation on Processor 1
+Sending message to 1
+Doing some computation on Processor 3
+Processor 1 got ALGORITHM from 2 on c21
+Processor 1 got a ALGORITHM from 2 on c21
+Sending message to 2
+Processor 2 got a ALGORITHM from 1 on c12
+Doing some computation on Processor 2
+Sending message to 1
+Processor 1 got ALGORITHM from 3 on c31
+Processor 1 got a ALGORITHM from 3 on c31
+Sending message to 3
+Doing some computation on Processor 2
+Processor 3 got a ALGORITHM from 1 on c13
+Sending message to 2
+Processor 2 got ALGORITHM from 3 on c32
+Processor 2 got a ALGORITHM from 3 on c32
+Sending message to 3
+Doing some computation on Processor 1
+Processor 3 got ALGORITHM from 2 on c23
+Processor 3 got a ALGORITHM from 2 on c23
+Doing some computation on Processor 3
+Processor 1 received a duplicate marker from 3 on c31
+Processor 1 received a duplicate marker from 2 on c21
+Processor 2 received a duplicate marker from 3 on c32
+Processor 3 received a duplicate marker from 2 on c23
+c21: [ALGORITHM 2], c31: [ALGORITHM 3], 
+c32: [ALGORITHM 3], c12: [], 
+c13: [], c23: [ALGORITHM 2], 
