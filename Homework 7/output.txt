@@ -1,0 +1,18 @@
+Processor 3 got a ALGORITHM message from 4 with a value of 25
+Processor 2 got a ALGORITHM message from 3 with a value of 43
+Processor 4 got a ALGORITHM message from 5 with a value of 23
+Processor 1 got a ALGORITHM message from 2 with a value of 19
+Processor 5 got a ALGORITHM message from 1 with a value of 53
+Processor 1 got a ALGORITHM message from 3 with a value of 43
+Processor 4 got a ALGORITHM message from 1 with a value of 53
+Processor 3 got a ALGORITHM message from 1 with a value of 53
+Processor 2 got a ALGORITHM message from 1 with a value of 53
+Processor 1 got a ALGORITHM message from 1 with a value of 53
+Processor 5 got a TERMINATE message from 1 with a value of 53
+Processor 4 got a TERMINATE message from 1 with a value of 53
+Processor 3 got a TERMINATE message from 1 with a value of 53
+Processor 2 got a TERMINATE message from 1 with a value of 53
+Processor 1 got a TERMINATE message from 1 with a value of 53
+-------------------------------------------
+Processor 1 has elected itself as leader!!!
+
