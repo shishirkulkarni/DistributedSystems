@@ -44,23 +44,14 @@ public class Processor implements Observer {
 			left.sendMessageToMyBuffer(new Message(this, value, MessageType.TERMINATE));
 			System.out.println("-------------------------------------------");
 			System.out.println("Processor " + this + " has elected itself as leader!!!");
-		}
-		
-		if(value >= m.getValue()) { // Consume the message
-			if(m.getType() == MessageType.TERMINATE) {
-				isLeader = false;
-				return;
-			}
 			return;
 		}
 		
+		if(value >= m.getValue()) { // Consume the message
+			return;
+		}
 		
-//		try {
-			left.sendMessageToMyBuffer(m);
-//		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		left.sendMessageToMyBuffer(m);
 	}
 	
 	public int getId() {
@@ -77,5 +68,9 @@ public class Processor implements Observer {
 	
 	public Processor getLeft() {
 		return left;
+	}
+	
+	public boolean isLeader() {
+		return isLeader;
 	}
 }
