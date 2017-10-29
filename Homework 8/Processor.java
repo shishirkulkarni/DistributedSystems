@@ -7,13 +7,14 @@ public class Processor implements Observer {
 	private int id, value;
 	private Processor left, right;
 	private MessageBuffer buffer;
-	private boolean didWin;
+	private boolean didWin, active;
 	private boolean leftReply, rightReply;
 	
 	public Processor(int id, int value) {
 		this.id = id;
 		this.value = value;
 		this.didWin = false; // initially all processors are participating in the algorithm
+		this.active = true;
 		this.buffer = new MessageBuffer();
 		this.buffer.addObserver(this);
 	}
@@ -38,8 +39,8 @@ public class Processor implements Observer {
 		// TODO Auto-generated method stub
 		Message m = (Message)arg;
 				
-		//Consume message
-		if(m.getValue() < value) {
+		//Consume message if active
+		if(m.getValue() < value && active) {
 			System.out.println(this + " consuming message from " + m.getSender());
 			return;
 		}
@@ -103,13 +104,17 @@ public class Processor implements Observer {
 		return left;
 	}
 	
-	public boolean isActive() {
+	public boolean won() {
 		return didWin;
 	}
 	
 	public void resetReplyFlags() {
 		leftReply = false;
 		rightReply = false;
+	}
+	
+	public void setInactive() {
+		this.active = false;
 	}
 	
 }

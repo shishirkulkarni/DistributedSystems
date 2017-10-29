@@ -62,11 +62,13 @@ public class Algorithm {
 			
 			phase++;
 
+			Thread.sleep(1000);
 			//Get rid of those processors who lost
 			Iterator<Processor> it = this.processors.iterator();
 			while(it.hasNext()) {
 				Processor p = it.next();
-				if(!p.isActive()) {
+				if(!p.won()) {
+					p.setInactive();
 					it.remove();
 				}
 			}
