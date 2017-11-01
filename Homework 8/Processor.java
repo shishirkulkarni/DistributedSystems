@@ -111,6 +111,7 @@ public class Processor implements Observer {
 	public void resetReplyFlags() {
 		leftReply = false;
 		rightReply = false;
+		didWin = false;
 	}
 	
 	public void setInactive() {
